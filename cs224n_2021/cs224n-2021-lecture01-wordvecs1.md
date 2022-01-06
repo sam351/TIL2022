@@ -50,20 +50,14 @@
 ### 2) `Word2vec` : objective function
 * For each position $ 𝑡 = 1, … , 𝑇 $, predict context words within a window of fixed size $m$, given center word $w_j$
 
-&nbsp; (1) `Likelihood` (maximize) = 
-$$
-\displaystyle{ L(\theta) = \prod_{t=1}^{T} \underset{j\neq0}{\prod_{-m \leq j \leq m}} P(w_{t+j}|w_t; \theta) }
-$$
+&nbsp; (1) `Likelihood` (maximize)  <br>
+&nbsp;&nbsp;&nbsp;&nbsp; <img src="images/lecture01_img1.png" height="100">
 
-&nbsp; (2) `Objective Function` (minimize) = 
-$$
-\displaystyle{ J(\theta) = -\frac{1}{T}\log{L(\theta)} = -\frac{1}{T} \sum_{t=1}^{T} \underset{j\neq0}{\sum_{-m \leq j \leq m}} \log{P(w_{t+j}|w_t; \theta)} }
-$$
+&nbsp; (2) `Objective Function` (minimize) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/lecture01_img2.png" height="100">
 
-&nbsp; (3) `Softmax Function` (probability) = 
-$$
-\displaystyle{ P(o|c) = \frac{\exp({u^T_o v_c})}{\sum_{w \in V} \exp({u^T_w v_c})} }
-$$
+&nbsp; (3) `Softmax Function` (probability) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/lecture01_img3.png" height="100">
 * softmax function maps arbitrary values $x_i$ to a probability distribution $𝑝_i$
 
 ### 3) Training model
@@ -72,18 +66,13 @@ $$
 * $ \theta \in \mathbb{R}^{2dV} $
     * In our case, we have d-dimensional vectors and V-many words
     * In our case, every prediction requires two vectors (center vector `c` & context vector `o`)
-* We optimize these `parameters` by walking down the `gradient`
-<img src="images/lecture01_img1.png" width="200">
+* We optimize these `parameters` by walking down the `gradient` <br>
+<img src="images/lecture01_img4.png" width="200">
 
 <br>
 
 ## 4. Word2vec objective function gradients
-$$
-\dfrac{\partial}{\partial v_c} \log{P(o|c)} = \dfrac{\partial}{\partial v_c} \log{ \frac{\exp({u^T_o v_c})}{\sum_{w \in V} \exp({u^T_w v_c})} }
-$$
-$$
-= ... = u_o - \sum_{x=1}^{V}P(x|c)u_x = observed - expected
-$$
+<img src="images/lecture01_img5.png" height="150">
 
 <br>
 
