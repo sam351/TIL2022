@@ -46,6 +46,37 @@ expensive to compute
 <br>
 
 ## 3. Why not capture co-occurrence counts directly?
+### 1) Basic concept of `co-occurrence matrix`
+* Another method to get word vectors
+* the matrix of counts of **how frequently words occur with each other**
+* representation of words as co-occurrence vectors
+* 2 options of `co-occurrence matrix` : **Windows VS Full Document**
+    * `Windows` - captures some syntactic and semantic
+information (locality & proximity)
+    * `Full Document` (ex. paragraphs, pages, documents) - Word-document co-occurrence matrix will give general topics leading to `Latent Semantic Analysis`
+
+    <br><img src="images/lecture02_img5.png" height="200"><br>
+
+### 2) Problems & Solutions
+* **Problem with `co-occurrence matrix`** : Very high dimension & require lots of storage & Very high sparsity
+    * Vectors increase in size with vocabulary
+    * Subsequent classification models have sparsity issues → Models are less robust
+* **Solution** : `Dimensionality Reduction` (Low-dimensional vectors)
+    * Store most of the important information in a fixed, small number of dimensions (a `dense vector`)
+    * Usually 25–1000 dimensions, similar to `word2vec`
+    * `Singular Value Decomposition` : Decompose a matrix $X$ into three matrices $U, \Sigma, V^T$
+    * We can get lower dimensional matrix than original `co-occurrence matrix` by rataining only *k* singular values 
+
+    <br><img src="images/lecture02_img6.png" height="250"><br>
+
+* **Problem with `SVD`** : Running on raw counts doesn’t work well
+    * Mathmatical assumption of `SVD` : normally distributed errors
+    * However, `function words` (ex. the, he, has) are too frequent in `co-occurrence matrix`
+* **Solution** : **Scaling the counts** in the cells can help a lot
+    * **Log** the frequencies
+    * **Cap** the frequencies : $ min(X,t) $ , with $ t ≈ 100 $ 
+    * **Ignore & Remove** the `function words`
+* Example case of scaled vectors : `COALS` model (Rohde et al. ms., 2005)
 
 <br>
 
